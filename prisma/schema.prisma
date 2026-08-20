@@ -1,0 +1,273 @@
+// YNR Happy Homes Database Schema - PostgreSQL & Prisma ORM
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator backendClient {
+  provider = "prisma-client-js"
+  output   = "../backend/node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  CUSTOMER
+  ADMIN
+  STAFF
+}
+
+enum EquipmentStatus {
+  AVAILABLE
+  ON_RENT
+  MAINTENANCE
+  INACTIVE
+}
+
+enum PropertyCategoryType {
+  LAND
+  SITES_PLOTS
+  APARTMENTS
+  INDIVIDUAL_HOUSES
+  COMMERCIAL_LAND
+  COMMERCIAL_PROPERTIES
+  OTHER
+}
+
+enum PropertyListingStatus {
+  AVAILABLE
+  UNDER_OFFER
+  SOLD
+  ARCHIVED
+}
+
+enum ProjectListingStatus {
+  PLANNING
+  UNDER_CONSTRUCTION
+  COMPLETED
+}
+
+enum UnitListingStatus {
+  AVAILABLE
+  BOOKED
+  SOLD
+}
+
+enum EnquiryCategoryType {
+  INFRA
+  REAL_ESTATE
+  CONSTRUCTION
+  GENERAL
+}
+
+enum EnquiryLeadStatus {
+  NEW
+  CONTACTED
+  IN_PROGRESS
+  CLOSED
+}
+
+enum MediaType {
+  IMAGE
+  DOCUMENT
+  BROCHURE
+}
+
+enum MediaCategory {
+  EQUIPMENT
+  PROPERTY
+  PROJECT
+  OTHER
+}
+
+model Company {
+  id              String   @id @default(uuid())
+  name            String   @default("YNR Happy Homes")
+  establishedYear Int      @default(2025)
+  location        String
+  address         String
+  phone           String
+  email           String
+  divisions       String[] @default(["INFRA", "REAL ESTATE", "CONSTRUCTION"])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("companies")
+}
+
+model User {
+  id              String   @id @default(uuid())
+  name            String
+  email           String   @unique
+  phone           String
+  passwordHash    String?
+  role            Role     @default(CUSTOMER)
+  isActive        Boolean  @default(true)
+  savedProperties String[] @default([])
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("users")
+}
+
+model Equipment {
+  id                 String          @id @default(uuid())
+  name               String
+  category           String
+  brand              String
+  model              String
+  description        String          @db.Text
+  images             String[]        @default([])
+  specifications     Json
+  operatorIncluded   Boolean         @default(true)
+  rentalBasis        String
+  availabilityStatus EquipmentStatus @default(AVAILABLE)
+  serviceArea        String
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  mediaAssets MediaAsset[]
+
+  @@map("equipments")
+}
+
+model Property {
+  id             String                @id @default(uuid())
+  title          String
+  category       PropertyCategoryType  @default(SITES_PLOTS)
+  type           String
+  price          String
+  address        String
+  area           String
+  city           String
+  state          String
+  pincode        String?
+  description    String                @db.Text
+  amenities      String[]              @default([])
+  images         String[]              @default([])
+  status         PropertyListingStatus @default(AVAILABLE)
+  mapCoordinates Json?
+  createdAt      DateTime              @default(now())
+  updatedAt      DateTime              @updatedAt
+
+  mediaAssets MediaAsset[]
+
+  @@map("properties")
+}
+
+model ConstructionProject {
+  id                 String               @id @default(uuid())
+  name               String
+  projectType        String
+  status             ProjectListingStatus @default(UNDER_CONSTRUCTION)
+  location           String
+  description        String               @db.Text
+  mainImage          String?
+  galleryImages      String[]             @default([])
+  brochureUrl        String?
+  amenities          String[]             @default([])
+  progressPercentage Int                  @default(0)
+  totalUnits         Int                  @default(0)
+  availableUnits     Int                  @default(0)
+  bookedUnits        Int                  @default(0)
+  soldUnits          Int                  @default(0)
+
+  blocks ProjectBlock[]
+  units  ProjectUnit[]
+  mediaAssets MediaAsset[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("construction_projects")
+}
+
+model ProjectBlock {
+  id          String   @id @default(uuid())
+  projectId   String
+  name        String
+  description String?  @db.Text
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  project ConstructionProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  units   ProjectUnit[]
+
+  @@map("project_blocks")
+}
+
+model ProjectUnit {
+  id             String            @id @default(uuid())
+  projectId      String
+  blockId        String?
+  unitNumber     String
+  unitType       String
+  floor          Int
+  area           Float
+  areaUnit       String            @default("sq.ft")
+  bedrooms       Int?
+  bathrooms      Int?
+  balcony        Boolean?
+  facing         String?
+  price          String
+  status         UnitListingStatus @default(AVAILABLE)
+  floorPlanImage String?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+
+  project ConstructionProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  block   ProjectBlock?       @relation(fields: [blockId], references: [id], onDelete: SetNull)
+  mediaAssets MediaAsset[]
+
+  @@map("project_units")
+}
+
+model Enquiry {
+  id               String              @id @default(uuid())
+  category         EnquiryCategoryType @default(GENERAL)
+  targetId         String?
+  targetTitle      String?
+  customerName     String
+  customerPhone    String
+  customerEmail    String?
+  customerLocation String?
+  dateRequired     String?
+  duration         String?
+  message          String?             @db.Text
+  status           EnquiryLeadStatus   @default(NEW)
+  createdAt        DateTime            @default(now())
+
+  @@map("enquiries")
+}
+
+model MediaAsset {
+  id           String        @id @default(uuid())
+  title        String
+  filename     String
+  originalName String
+  mimeType     String
+  sizeBytes    Int
+  url          String
+  storageKey   String
+  type         MediaType     @default(IMAGE)
+  category     MediaCategory @default(OTHER)
+  sortOrder    Int           @default(0)
+
+  equipmentId  String?
+  propertyId   String?
+  projectId    String?
+  unitId       String?
+
+  equipment    Equipment?           @relation(fields: [equipmentId], references: [id], onDelete: Cascade)
+  property     Property?            @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  project      ConstructionProject? @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  unit         ProjectUnit?         @relation(fields: [unitId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("media_assets")
+}
