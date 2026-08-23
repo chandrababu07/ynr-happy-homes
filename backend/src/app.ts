@@ -10,11 +10,35 @@ export function createApp(): Express {
   const app = express();
 
   // Global API Rate Limiting
+  // Render health checks are excluded so the service
+  // can always report its health status.
   const apiLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     limit: 100,
     standardHeaders: 'draft-8',
     legacyHeaders: false,
+
+    skip: (req) => {
+      const userAgent = req.get('user-agent')?.toLowerCase() || '';
+
+      // Never rate-limit Render health checks
+      if (userAgent.includes('render')) {
+        return true;
+      }
+
+      // Never rate-limit common health-check endpoints
+      if (
+        req.path === '/' ||
+        req.path === '/health' ||
+        req.path === '/api/health' ||
+        req.path === '/api/v1/health'
+      ) {
+        return true;
+      }
+
+      return false;
+    },
+
     message: {
       error: 'Too many requests',
       message: 'Please try again later.',
