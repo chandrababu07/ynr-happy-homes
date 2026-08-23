@@ -1,6 +1,7 @@
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import path from 'path';
+import { rateLimit } from 'express-rate-limit';
 import { config } from './config/index.js';
 import apiRouter from './routes/index.js';
 import { errorHandler } from './middleware/errorHandler.js';
@@ -8,13 +9,31 @@ import { errorHandler } from './middleware/errorHandler.js';
 export function createApp(): Express {
   const app = express();
 
+  // Global API Rate Limiting
+  const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    standardHeaders: 'draft-8',
+    legacyHeaders: false,
+    message: {
+      error: 'Too many requests',
+      message: 'Please try again later.',
+    },
+  });
+
+  app.use(apiLimiter);
+
   // Security Headers Middleware
   app.disable('x-powered-by');
+
   app.use((_req: Request, res: Response, next: NextFunction) => {
     res.setHeader('X-Content-Type-Options', 'nosniff');
     res.setHeader('X-Frame-Options', 'DENY');
     res.setHeader('X-XSS-Protection', '1; mode=block');
-    res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+    res.setHeader(
+      'Referrer-Policy',
+      'strict-origin-when-cross-origin'
+    );
     next();
   });
 
@@ -24,9 +43,14 @@ export function createApp(): Express {
       origin: (origin, callback) => {
         // Allow requests with no origin (e.g. mobile apps, curl, server-to-server)
         if (!origin) return callback(null, true);
-        if (config.corsOrigins.indexOf(origin) !== -1 || config.corsOrigins.includes('*')) {
+
+        if (
+          config.corsOrigins.indexOf(origin) !== -1 ||
+          config.corsOrigins.includes('*')
+        ) {
           return callback(null, true);
         }
+
         return callback(null, true); // Fallback allow in dev mode
       },
       credentials: true,
@@ -40,7 +64,10 @@ export function createApp(): Express {
   app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
   // Static File Serving for Uploaded Media & Documents
-  app.use('/uploads', express.static(path.join(process.cwd(), 'uploads')));
+  app.use(
+    '/uploads',
+    express.static(path.join(process.cwd(), 'uploads'))
+  );
 
   // Mount API Routes
   app.use(config.apiPrefix, apiRouter);
