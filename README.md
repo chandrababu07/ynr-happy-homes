@@ -1,15 +1,6 @@
 # YNR Happy Homes
 
-[![React](https://img.shields.io/badge/React-18.2-61DAFB?logo=react&logoColor=black)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.2-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-5.1-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
-[![Express](https://img.shields.io/badge/Express-4.18-000000?logo=express&logoColor=white)](https://expressjs.com/)
-[![Prisma](https://img.shields.io/badge/Prisma-5.22-2D3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
-[![Docker](https://img.shields.io/badge/Docker-Multi--stage-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
-[![Render](https://img.shields.io/badge/Render-Deployed-46E3B7?logo=render&logoColor=black)](https://render.com/)
-
-A full-stack, enterprise-grade business platform designed for infrastructure equipment rental, real estate services, and construction project management. Built specifically for **YNR Happy Homes** (Established 2025, headquartered in Mangalagiri, Andhra Pradesh, India).
+A full-stack Enterprise-grade business platform designed for infrastructure equipment rental, real estate services, and construction project management.Built specifically for **YNR Happy Homes** (Established 2025, headquarters in Mangalagiri, Andhra Pradesh, India).
 
 ---
 
@@ -21,40 +12,40 @@ YNR Happy Homes is an integrated commercial web platform that unifies heavy cons
 
 ## Live Demo
 
-- 🔗 **Live Application**: [https://ynr-happy-homes-frontend.onrender.com](https://ynr-happy-homes-frontend.onrender.com)
-- 🔗 **API Health Endpoint**: [https://ynr-happy-homes-backend.onrender.com/api/v1/health](https://ynr-happy-homes-backend.onrender.com/api/v1/health)
+🔗 **Live Application**: [https://ynr-happy-homes-frontend.onrender.com](https://ynr-happy-homes-frontend.onrender.com)
+🔗 **API Health Endpoint**: [https://ynr-happy-homes-backend.onrender.com/api/v1/health](https://ynr-happy-homes-backend.onrender.com/api/v1/health)
 
 ---
 
 ## Key Features
 
-- 🏗️ **Triple-Division Business Hub**: Seamless navigation across Heavy Machinery Rentals, Property Brokerage, and Building Construction.
-- 🚜 **Infrastructure Rental Engine**: Complete equipment catalog with technical specifications, availability statuses, operator-inclusive terms, and location-aware rental request workflows.
-- 🏡 **Dynamic Real Estate Brokerage**: Searchable and filterable property catalog for lands, plots/sites, apartments, individual houses, and commercial properties with image galleries and status tags.
-- 🏢 **Construction Project Management**: Interactive project portfolio with construction progress metrics, hierarchical project blocks (`ProjectBlock`), and real-time flat/unit availability matrices (`ProjectUnit`).
-- 📩 **Centralized Customer Enquiry Workflow**: Unified lead capture for equipment rental, property inspection, unit booking, and general business enquiries with direct WhatsApp connect.
-- 🔐 **Secure Role-Based Access Control (RBAC)**: Protected Admin Portal for authenticated staff to perform full CRUD operations on listings, projects, unit matrices, media, and customer lead pipelines.
-- 📁 **Media & Document Management**: Dedicated API endpoints and storage handling for uploading and linking property images, project galleries, and floor plans.
-- ⚡ **Production-Ready Deployment**: Multi-stage Docker containerization and Render Infrastructure-as-Code blueprint (`render.yaml`).
+🏗️ **Triple-Division Business Hub**: Seamless navigation across Heavy Machinery Rentals, Property Brokerage, and Building Construction.
+🚜 **Infrastructure Rental Engine**: Complete equipment catalog with technical specifications, availability statuses, operator-inclusive terms, and location-aware rental request workflows.
+🏡 **Dynamic Real Estate Brokerage**: Searchable and filterable property catalog for lands, plots/sites, apartments, individual houses, and commercial properties with image galleries and status tags.
+🏢 **Construction Project Management**: Interactive project portfolio with construction progress metrics, hierarchical project blocks (`ProjectBlock`), and real-time flat/unit availability matrices (`ProjectUnit`).
+📩 **Centralized Customer Enquiry Workflow**: Unified lead capture for equipment rental, property inspection, unit booking, and general business enquiries with direct WhatsApp connect.
+🔐 **Secure Role-Based Access Control (RBAC)**: Protected Admin Portal for authenticated staff to perform full CRUD operations on listings, projects, unit matrices, media, and customer lead pipelines.
+📁 **Media & Document Management**: Dedicated API endpoints and storage handling for uploading and linking property images, project galleries, and floor plans.
+⚡ **Production-Ready Deployment**: Multi-stage Docker containerization and Render Infrastructure-as-Code blueprint (`render.yaml`).
 
 ---
 
 ## Business Modules
 
 ### 1. Infrastructure (Equipment Rental)
-- **Catalog**: Heavy machinery listings including excavators (e.g., Hyundai Smart Plus 210 with operator included), backhoe loaders (JCB 3DX), tippers, and mobile cranes.
-- **Specifications & Terms**: Detailed machine specs, rental basis options (hourly, daily, monthly), operator inclusion flags, and regional service coverage (Mangalagiri, Vijayawada, Guntur, Amaravati).
-- **Rental Request Workflow**: Interactive enquiry form capturing work location, required start date, duration, and operator requirements.
+**Catalog**: Heavy machinery listings including excavators , backhoe loaders , tippers, and mobile cranes.
+**Specifications & Terms**: Detailed machine specs, rental basis options (hourly, daily, monthly), operator inclusion flags, and regional service coverage (Mangalagiri, Vijayawada, Guntur, Amaravati) and across south india.
+**Rental Request Workflow**: Interactive enquiry form capturing work location, required start date, duration, and operator requirements.
 
 ### 2. Real Estate (Property Brokerage)
-- **Categories**: Land, Sites/Plots, Apartments, Individual Houses, Commercial Land, and Commercial Properties.
-- **Filtering & Search**: Dynamic client-side and server-side filtering by property category, location, price range, and availability status.
-- **Status Lifecycle**: Clear listing status transitions (`AVAILABLE`, `UNDER_OFFER`, `SOLD`, `ARCHIVED`).
+**Categories**: Land, Sites/Plots, Apartments, Individual Houses, Commercial Land, and Commercial Properties.
+**Filtering & Search**: Dynamic client-side and server-side filtering by property category, location, price range, and availability status.
+**Status Lifecycle**: Clear listing status transitions (`AVAILABLE`, `UNDER_OFFER`, `SOLD`, `ARCHIVED`).
 
 ### 3. Construction (Building Projects & Unit Matrix)
-- **Portfolio**: Residential apartments, individual housing layouts, and commercial complexes.
-- **Progress Tracking**: Real-time project completion percentages and stage tracking (Planning, Under Construction, Completed).
-- **Block & Flat Availability Matrix**: Hierarchical structure dividing projects into blocks (`ProjectBlock`) and individual units (`ProjectUnit`) with dynamic availability badges (`AVAILABLE`, `BOOKED`, `SOLD`).
+**Portfolio**: Residential apartments, individual housing layouts, and commercial complexes.
+**Progress Tracking**: Real-time project completion percentages and stage tracking (Planning, Under Construction, Completed).
+**Block & Flat Availability Matrix**: Hierarchical structure dividing projects into blocks (`ProjectBlock`) and individual units (`ProjectUnit`) with dynamic availability badges (`AVAILABLE`, `BOOKED`, `SOLD`).
 
 ---
 
@@ -194,8 +185,8 @@ ynr-happy-homes/
 ## Frontend Setup
 
 ### Prerequisites
-- **Node.js**: v18.x or v20.x
-- **npm**: v9.x or later
+**Node.js**: v18.x or v20.x
+**npm**: v9.x or later
 
 ### Installation & Execution
 ```bash
@@ -217,8 +208,8 @@ npm run preview
 ## Backend Setup
 
 ### Prerequisites
-- **Node.js**: v18.x or v20.x
-- **PostgreSQL**: v15.x running locally or via Docker
+**Node.js**: v18.x or v20.x
+**PostgreSQL**: v15.x running locally or via Docker
 
 ### Installation & Execution
 ```bash
@@ -265,9 +256,6 @@ npm start
 | `ALLOWED_ORIGINS` | Comma-separated CORS allowed origins | `http://localhost:5173,http://localhost:3000` |
 | `JWT_SECRET` | Secret key for signing JSON Web Tokens | `your-512-bit-secret-key-placeholder` |
 | `JWT_EXPIRES_IN` | Token expiration duration | `24h` |
-
-> [!IMPORTANT]
-> Never commit actual credentials, database passwords, or JWT secrets to version control. Use `.env` for local testing and secure environment variables in cloud hosting platforms.
 
 ---
 
@@ -333,9 +321,9 @@ docker-compose down
 
 The API includes a dedicated public health-check endpoint to verify database connectivity, server uptime, and system diagnostics.
 
-- **Endpoint**: `GET /api/v1/health`
-- **Access**: Public
-- **Behavior**: Executes a live database query (`SELECT 1`) against PostgreSQL to confirm real-time connectivity.
+**Endpoint**: `GET /api/v1/health`
+**Access**: Public
+**Behavior**: Executes a live database query (`SELECT 1`) against PostgreSQL to confirm real-time connectivity.
 
 ### Example Request
 ```bash
@@ -387,11 +375,11 @@ The application is configured for deployment using **Render Infrastructure-as-Co
 
 ## Security Considerations
 
-- 🛡️ **CORS Protection**: Restricted origin policies enforced in Express via configurable `ALLOWED_ORIGINS`.
-- 🔑 **Authentication & Authorization**: Admin routes protected by JWT verification middleware (`authMiddleware.ts`). Passwords hashed securely using `bcryptjs`.
-- 🧪 **Input Validation**: Strict request body validation middleware for enquiries, equipment, properties, projects, and user operations.
-- 🛑 **Rate Limiting**: Custom rate limiting middleware (`rateLimiter.ts`) applied to prevent API abuse on public routes.
-- 🔒 **Secrets Isolation**: Zero hardcoded production credentials; environment configuration managed cleanly through `.env` templates.
+🛡️ **CORS Protection**: Restricted origin policies enforced in Express via configurable `ALLOWED_ORIGINS`.
+🔑 **Authentication & Authorization**: Admin routes protected by JWT verification middleware (`authMiddleware.ts`). Passwords hashed securely using `bcryptjs`.
+🧪 **Input Validation**: Strict request body validation middleware for enquiries, equipment, properties, projects, and user operations.
+🛑 **Rate Limiting**: Custom rate limiting middleware (`rateLimiter.ts`) applied to prevent API abuse on public routes.
+🔒 **Secrets Isolation**: Zero hardcoded production credentials; environment configuration managed cleanly through `.env` templates.
 
 ---
 
@@ -424,10 +412,10 @@ cd backend && npm run typecheck
 
 ## Future Improvements
 
-- 🔔 **Automated Notifications**: Integration with SMS/Email gateways (e.g., Twilio / SendGrid) for immediate enquiry lead notifications to management.
-- ☁️ **Cloud Media Storage**: Migration of local upload directory to Amazon S3 or Google Cloud Storage bucket for scalable high-resolution media hosting.
-- 📊 **Advanced Analytics Dashboard**: Enhanced visual reports tracking lead conversion rates across Infrastructure, Real Estate, and Construction divisions.
-- 📱 **Mobile Application**: Native mobile app for field staff to update unit construction progress and machine availability on site.
+🔔 **Automated Notifications**: Integration with SMS/Email gateways (e.g., Twilio / SendGrid) for immediate enquiry lead notifications to management.
+☁️ **Cloud Media Storage**: Migration of local upload directory to Amazon S3 or Google Cloud Storage bucket for scalable high-resolution media hosting.
+📊 **Advanced Analytics Dashboard**: Enhanced visual reports tracking lead conversion rates across Infrastructure, Real Estate, and Construction divisions.
+📱 **Mobile Application**: Native mobile app for field staff to update unit construction progress and machine availability on site.
 
 ---
 
@@ -451,4 +439,3 @@ Copyright © 2025–2026 **YNR Happy Homes**. All rights reserved.
 ## Project Status
 
 🟢 **Deployed & Functional**
-The YNR Happy Homes platform is fully implemented, containerized, and deployed live in production on Render. Both the React SPA frontend and Express REST API backend are operational with live PostgreSQL database connectivity.
